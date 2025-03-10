@@ -131,9 +131,6 @@ const New = () => {
   />
 </div>
 
-
-
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-green-400 text-black p-2 rounded-lg font-bold mt-4 shadow-lg hover:scale-105 transition-transform"

@@ -6,11 +6,21 @@ import New from "./components/New";
 import Statistic from './components/Statistic';
 import Sem from './components/Sem'; 
 import Mark from './components/Mark';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <SignUp />
+    },
+    {
+      path: "/Login",
+      element: <Login />
+    },
+    {
+      path: "/dashboard",
       element: <User />
     },
     {

@@ -1,19 +1,75 @@
 const express = require("express")
 const mongoose  =require("mongoose")
 const cors=require("cors")
-const userModel = require("./modules/collection")
+const { userModel, AdminModel } = require("./modules/collection");
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const cookieParser = require("cookie-parser")
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin : "http://localhost:5173",
+  credentials : true,
+  method :["GET","POST"]
+}))
 app.use(express.json())
+app.use(cookieParser())
 
 mongoose.connect("mongodb://127.0.0.1:27017/CRUD")
 
+const verifyUser = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "No token available" });
+  }
+  jwt.verify(token, "secret-key22", (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: "Error with token", error: err.message });
+    }
+    next();
+  });
+};
+
+app.post("/signup", (req, res) => {
+  const { name, email, password } = req.body;
+  bcrypt.hash(password, 10)
+    .then(hash => {
+      AdminModel.create({ name, email, password: hash })
+        .then(users => res.json(users))
+        .catch(err => res.json(err))
+    })
+    .catch(err => res.json(err))
+})
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  try {
+    AdminModel.findOne({ email: email })
+      .then(user => {
+        if (user) {
+          bcrypt.compare(password, user.password, (err, result) => {
+            if (result) {
+              const token = jwt.sign({ email: user.email }, "secret-key22", { expiresIn: "1d" })
+              res.cookie("token", token)
+              res.json({message:"success"})
+            }else {
+              res.status(401).json({message :"incorrect password"})
+            }
+          })
+        } else {
+          res.json({message:"no user found"})
+        }
+      })
+      .catch(err => res.json(err))
+  } catch (err) {
+    res.json(err)
+  }
+})
 app.post("/newuser",(req,res)=>{
     userModel.create(req.body)
     .then(Collections => res.json(Collections))
     .catch(err => res.json(err))
 })
-app.get("/dashboard",(req,res)=>{
+app.get("/dashboard",verifyUser,(req,res)=>{
     userModel.find({})
     .then(Collections => res.json(Collections))
     .catch(err => res.json(err))

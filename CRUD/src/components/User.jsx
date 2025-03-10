@@ -11,13 +11,14 @@ const User = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
+  axios.defaults.withCredentials =true
   useEffect(() => {
     axios.get("http://localhost:3000/dashboard",)
     .then((res) => {
       setdata(res.data);
     })
     .catch((err) =>{ console.log(" Error fetching dashboard:", err.response?.data || err.message)
-      // navigate("/Login")
+      navigate("/Login")
     });
   }, []);
   
