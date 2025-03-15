@@ -43,7 +43,7 @@ const Edit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !rollno || !branch) {
-      setError("Failed to update user details.Please try again.");
+      setError("Failed to update user details. Please try again.");
       return;
     }
     axios
@@ -57,7 +57,10 @@ const Edit = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen text-black relative bg-[#DCE1E6]">
+    <div className="flex justify-center items-center min-h-screen text-black relative bg-[#DCE1E6] backdrop-blur-md">
+      {/* Background Blur Effect */}
+      <div className="absolute inset-0 bg-[#1F2937]/50 backdrop-blur-md"></div>
+
       <AnimatePresence>
         {error && (
           <motion.div
@@ -82,43 +85,80 @@ const Edit = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <form
-  onSubmit={handleSubmit}
-  className="bg-[#1F2937] text-white p-6 rounded-lg shadow-2xl w-96 space-y-4 border border-white/20 backdrop-blur-md"
->
-        <h2 className="text-3xl font-bold text-center text-white">Edit User</h2>
 
-        <div>
-          <label className="block text-sm font-medium">Name</label>
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="relative bg-white text-black p-8 rounded-xl shadow-2xl w-96 space-y-5 border border-gray-300"
+      >
+        <h2 className="text-3xl font-bold text-center text-black mb-4">Edit User</h2>
+
+        {/* Description */}
+        <p className="text-sm text-gray-600 text-center mb-6">
+          Update the user details below. Ensure all fields are filled accurately to avoid errors.
+        </p>
+
+        {/* Name Field */}
+        <div className="relative">
           <input
+            id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-white/20 text-white placeholder-white/80 focus:ring-2 focus:ring-purple-400 outline-none"
-            placeholder="Enter your name"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Name"
+            required
           />
+          <label
+            htmlFor="name"
+            className={`absolute left-4 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              name ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-gray-500"
+            } bg-white px-1`}
+          >
+            Full Name
+          </label>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">rollno</label>
+        {/* Roll Number Field */}
+        <div className="relative">
           <input
-            type="rollno"
+            id="rollno"
+            type="number"
             value={rollno}
             onChange={(e) => setRollno(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-white/20 text-white placeholder-white/80 focus:ring-2 focus:ring-blue-400 outline-none"
-            placeholder="Enter your rollno"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Roll No"
+            required
           />
+          <label
+            htmlFor="rollno"
+            className={`absolute left-4 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              rollno ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-gray-500"
+            } bg-white px-1`}
+          >
+            Roll No
+          </label>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Branch</label>
+        {/* Branch Field */}
+        <div className="relative">
           <input
+            id="branch"
             type="text"
             value={branch}
             onChange={(e) => setBranch(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-white/20 text-white placeholder-white/80 focus:ring-2 focus:ring-teal-400 outline-none"
-            placeholder="Enter your Branch"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Branch"
+            required
           />
+          <label
+            htmlFor="branch"
+            className={`absolute left-4 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              branch ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-gray-500"
+            } bg-white px-1`}
+          >
+            Branch
+          </label>
         </div>
 
         <button
@@ -128,7 +168,6 @@ const Edit = () => {
           Submit
         </button>
       </form>
-
     </div>
   );
 };

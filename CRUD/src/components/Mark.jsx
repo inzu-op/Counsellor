@@ -6,7 +6,7 @@ const Mark = () => {
   const { id, semester } = useParams();
   const [subject, setSubject] = useState("");
   const [marks, setMarks] = useState("");
-  const [Grade, setGrade] = useState("");
+  const [grade, setGrade] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (category) => (e) => {
@@ -29,7 +29,7 @@ const Mark = () => {
     const data = {
       subject,
       marks: marksValue,
-      ...(category === "sem" && { Grade }),
+      ...(category === "sem" && { grade }),
       category,
     };
 
@@ -49,47 +49,81 @@ const Mark = () => {
 
   return (
     <div className="container mx-auto p-4 min-h-screen bg-gradient-to-r from-purple-300 via-blue-300 to-indigo-300 flex justify-center items-center">
-      <div className="relative bg-gray-900 backdrop-blur-lg shadow-xl rounded-2xl p-6 w-full max-w-md border border-white/20">
-        <h1 className="text-3xl font-extrabold text-white text-center mb-6">
+      <div className="relative bg-white shadow-xl rounded-2xl p-6 w-full max-w-md border border-gray-300">
+        <h1 className="text-3xl font-extrabold text-black text-center mb-6">
           Enter Marks
         </h1>
 
         {error && <p className="text-red-400 text-center mb-4">{error}</p>}
 
-        <form className="space-y-4 ">
-          <div>
-            <label className="block text-white font-medium">Subject</label>
+        <p className="text-black text-center mb-4">
+          Please fill in the details below to enter the marks for the subject.
+        </p>
+
+        <form className="space-y-4">
+          {/* Subject Input */}
+          <div className="relative">
             <input
+              id="subject"
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="mt-1 block w-full p-3 bg-white/20 text-white border border-white/30 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 outline-none"
-              placeholder="Enter subject"
+              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              placeholder=" "
+              required
             />
+            <label
+              htmlFor="subject"
+              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+                subject ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              } bg-white px-1`}
+            >
+              Subject
+            </label>
           </div>
 
-          <div>
-            <label className="block text-white font-medium">Marks</label>
+          {/* Marks Input */}
+          <div className="relative">
             <input
+              id="marks"
               type="number"
               value={marks}
               onChange={(e) => setMarks(e.target.value)}
-              className="mt-1 block w-full p-3 bg-white/20 text-white border border-white/30 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 outline-none"
-              placeholder="Enter marks (0-100)"
+              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              placeholder=" "
               min="0"
               max="100"
+              required
             />
+            <label
+              htmlFor="marks"
+              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+                marks ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              } bg-white px-1`}
+            >
+              Marks
+            </label>
           </div>
 
-          <div>
-            <label className="block text-white font-medium">Grade</label>
+          {/* Grade Input */}
+          <div className="relative">
             <input
+              id="grade"
               type="text"
-              value={Grade}
+              value={grade}
               onChange={(e) => setGrade(e.target.value)}
-              className="mt-1 block w-full p-3 bg-white/20 text-white border border-white/30 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 outline-none"
-              placeholder="Enter Grade"
+              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              placeholder=" "
+              required
             />
+            <label
+              htmlFor="grade"
+              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+                grade ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              } bg-white px-1`}
+            >
+              Grade
+            </label>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">

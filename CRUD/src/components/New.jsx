@@ -3,10 +3,10 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams } from "react-router-dom";
 
-const New = () => { 
-  const {id} =useParams();
+const New = () => {
+  const { id } = useParams();
   const [name, setName] = useState("");
-  const [rollno, setRollno] = useState(""); // Corrected state name
+  const [rollno, setRollno] = useState("");
   const [branch, setBranch] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -25,23 +25,28 @@ const New = () => {
     }
   }, [success]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const userData = {
-        name,
-        rollno: Number(rollno),  // Convert rollno to number
-        branch
+      name,
+      rollno: Number(rollno), // Convert rollno to number
+      branch,
     };
 
-    console.log("Sending Data:", userData);  // Debugging
+    console.log("Sending Data:", userData); // Debugging
 
     try {
-        const res = await axios.post("http://localhost:3000/newuser", userData);
-        console.log("Response:", res.data);
+      const res = await axios.post("http://localhost:3000/newuser", userData);
+      console.log("Response:", res.data);
+      setSuccess("Student added successfully!");
+      setName("");
+      setRollno("");
+      setBranch("");
     } catch (error) {
-        console.error("Error:", error.response?.data);
+      console.error("Error:", error.response?.data);
+      setError("Failed to add student. Please try again.");
     }
-};
-
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#7E22CE] to-[#22D3EE]">
@@ -77,44 +82,77 @@ const New = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-400 backdrop-blur-lg text-black p-8 rounded-xl shadow-xl w-96 space-y-5 border border-white/20"
+        className="bg-white backdrop-blur-lg text-black p-8 rounded-xl shadow-xl w-96 space-y-5 border border-white/20"
       >
         <h2 className="text-3xl font-bold text-center mb-4">New Student</h2>
 
+        {/* Description */}
+        <p className="text-sm text-gray-600 text-center mb-6">
+          Welcome! Please fill in the details below to register a students  . Ensure all fields are
+          filled accurately to avoid errors.
+        </p>
+
         {/* Name Field */}
-        <div>
-          <label className="block text-sm font-medium">Name</label>
+        <div className="relative">
           <input
+            id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
-            placeholder="Enter your name"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Name"
+            required
           />
+          <label
+            htmlFor="name"
+            className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              name ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"
+            } bg-white px-1`}
+          >
+            Full Name
+          </label>
         </div>
 
         {/* Roll Number Field */}
-        <div>
-          <label className="block text-sm font-medium">Roll No</label>
+        <div className="relative">
           <input
-            type="number" // Changed to text
+            id="rollno"
+            type="number"
             value={rollno}
             onChange={(e) => setRollno(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
-            placeholder="Enter your roll number"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Roll No"
+            required
           />
+          <label
+            htmlFor="rollno"
+            className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              rollno ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"
+            } bg-white px-1`}
+          >
+            Roll No
+          </label>
         </div>
 
         {/* Branch Field */}
-        <div>
-          <label className="block text-sm font-medium">Branch</label>
+        <div className="relative">
           <input
+            id="branch"
             type="text"
             value={branch}
             onChange={(e) => setBranch(e.target.value)}
-            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
-            placeholder="Enter your branch"
+            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+            placeholder="Branch"
+            required
           />
+          <label
+            htmlFor="branch"
+            className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
+              branch ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"
+            } bg-white px-1`}
+          >
+            Branch
+          </label>
         </div>
 
         <button
