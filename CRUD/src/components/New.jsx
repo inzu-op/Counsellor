@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { useParams } from "react-router-dom";
 
-const New = () => {
+const New = () => { 
+  const {id} =useParams();
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [rollno, setRollno] = useState(""); // Corrected state name
   const [branch, setBranch] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -23,45 +25,29 @@ const New = () => {
     }
   }, [success]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    const userData = {
+        name,
+        rollno: Number(rollno),  // Convert rollno to number
+        branch
+    };
 
-    if (!name || !email || !branch) {
-      setError("Fill the Above Form ");
-      return;
-    }
+    console.log("Sending Data:", userData);  // Debugging
 
     try {
-      const response = await axios.post("http://localhost:3000/newuser", {
-        name,
-        email,
-        branch,
-      });
-      console.log(response);
-      setSuccess("User created successfully");
-      setName("");
-      setEmail("");
-      setBranch("");
+        const res = await axios.post("http://localhost:3000/newuser", userData);
+        console.log("Response:", res.data);
     } catch (error) {
-      console.error(error);
-      setError(error.message);
+        console.error("Error:", error.response?.data);
     }
-  };
+};
+
 
   return (
-    <div className="flex justify-center items-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#7E22CE] to-[#22D3EE] 
-    before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent_50px,#ffb4b8_50px,#ffb4b8_52px,transparent_52px),linear-gradient(#e1e1e1_0.1em,transparent_0.1em)] before:bg-[100%_30px] before:opacity-30">
-
-      {/* Rotating Blurry Gradient Layer 1 */}
-      <div className="absolute top-1/2 left-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] 
-      -translate-x-1/2 -translate-y-1/2 animate-rotate blur-[50px] opacity-80"></div>
-
-      {/* Rotating Blurry Gradient Layer 2 (Reverse Direction) */}
-      <div className="absolute top-1/2 left-1/2 w-[180%] h-[180%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] 
-      -translate-x-1/2 -translate-y-1/2 animate-rotate-reverse blur-[50px] opacity-60"></div>
-
-      {/* Your Content Here */}
-      <div className="relative z-10 text-white text-3xl font-bold"></div>
+    <div className="flex justify-center items-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#7E22CE] to-[#22D3EE]">
+      {/* Rotating Blurry Gradient Layers */}
+      <div className="absolute top-1/2 left-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] -translate-x-1/2 -translate-y-1/2 animate-rotate blur-[50px] opacity-80"></div>
+      <div className="absolute top-1/2 left-1/2 w-[180%] h-[180%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] -translate-x-1/2 -translate-y-1/2 animate-rotate-reverse blur-[50px] opacity-60"></div>
 
       <AnimatePresence>
         {error && (
@@ -102,34 +88,34 @@ const New = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-           className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
+            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
             placeholder="Enter your name"
           />
         </div>
 
-        {/* Email Field */}
+        {/* Roll Number Field */}
         <div>
-          <label className="block text-sm font-medium">Email</label>
+          <label className="block text-sm font-medium">Roll No</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-           className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
-            placeholder="Enter your email"
+            type="number" // Changed to text
+            value={rollno}
+            onChange={(e) => setRollno(e.target.value)}
+            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
+            placeholder="Enter your roll number"
           />
         </div>
 
         {/* Branch Field */}
         <div>
-  <label className="block text-sm font-medium">Branch</label>
-  <input
-    type="text"
-    value={branch}
-    onChange={(e) => setBranch(e.target.value)}
-    className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
-    placeholder="Enter your branch"
-  />
-</div>
+          <label className="block text-sm font-medium">Branch</label>
+          <input
+            type="text"
+            value={branch}
+            onChange={(e) => setBranch(e.target.value)}
+            className="w-full p-2 mt-1 border rounded-lg bg-black text-white placeholder-white focus:bg-white focus:text-black focus:outline-none transition duration-500"
+            placeholder="Enter your branch"
+          />
+        </div>
 
         <button
           type="submit"
@@ -138,7 +124,6 @@ const New = () => {
           Submit
         </button>
       </form>
-
     </div>
   );
 };

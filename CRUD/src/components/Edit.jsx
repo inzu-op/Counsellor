@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const Edit = () => {
   const { id } = useParams();
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [rollno, setRollno] = useState("");
   const [branch, setBranch] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -17,7 +17,7 @@ const Edit = () => {
       .get("http://localhost:3000/getuser/" + id)
       .then((res) => {
         setName(res.data.name);
-        setEmail(res.data.email);
+        setRollno(res.data.rollno);
         setBranch(res.data.branch);
       })
       .catch((err) => console.log(err));
@@ -42,12 +42,12 @@ const Edit = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !email || !branch) {
+    if (!name || !rollno || !branch) {
       setError("Failed to update user details.Please try again.");
       return;
     }
     axios
-      .put("http://localhost:3000/edited/" + id, { name, email, branch })
+      .put("http://localhost:3000/edited/" + id, { name, rollno, branch })
       .then(() => {
         setSuccess("User details updated successfully!");
       })
@@ -100,13 +100,13 @@ const Edit = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Gmail</label>
+          <label className="block text-sm font-medium">rollno</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="rollno"
+            value={rollno}
+            onChange={(e) => setRollno(e.target.value)}
             className="w-full p-2 mt-1 border rounded-lg bg-white/20 text-white placeholder-white/80 focus:ring-2 focus:ring-blue-400 outline-none"
-            placeholder="Enter your Gmail"
+            placeholder="Enter your rollno"
           />
         </div>
 

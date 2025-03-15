@@ -12,15 +12,27 @@ function SignUp() {
     const [error, setError] = useState('');
 
     axios.defaults.withCredentials = true
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        axios.post("http://localhost:3000/signup",{name,email,password})
-        .then(result => {console.log(result)
-            Navigate("/Login")
-        })
-        .catch(err => console.log(err))
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      if (!name || !email || !password) {
+        setError("Please fill in all fields !!");
+        setTimeout(() => {
+          setError(null);
+        }, 2000);
+        return;
+      }
+      axios.post("http://localhost:3000/signup",{name,email,password})
+      .then(result => {console.log(result)
+        if(result.data === "success"){
+          Navigate("/Login")
+        }
+      })
+      .catch(err => {
+        setError(err.message);
+        console.log(err)
+      })
     }
-
+  
     return (
         <div className="h-screen w-full flex justify-center items-center bg-gray-300 font-poppins">
             <div className="w-full max-w-md p-8 text-black backdrop-blur-3xl rounded-3xl shadow-lg border border-white/20 bg-white h-[500px]">

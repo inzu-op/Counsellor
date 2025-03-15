@@ -11,30 +11,40 @@ app.use(cors({
   credentials : true,
   method :["GET","POST"]
 }))
-app.use(express.json())
+app.use(express.json()); // Allows JSON data parsing
+app.use(express.urlencoded({ extended: true })); // Allows form data parsing
 app.use(cookieParser())
 
 mongoose.connect("mongodb://127.0.0.1:27017/CRUD")
 
-const verifyUser = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(401).json({ message: "No token available" });
+const verifyUser = (req,res,next) =>{
+  const token = req.cookies.token
+  if(!token){
+    return  res.status(404).json ("no token available")
   }
-  jwt.verify(token, "secret-key22", (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: "Error with token", error: err.message });
-    }
-    next();
-  });
-};
+  else{
+    jwt.verify(token , "jwt-secret-key",(err,decoded)=>{
+      if(err){
+        return res.json ("error with Token")
+      }
+      else{
+        if(decoded.role === "admin"){
+          next()
+        }
+        else{
+          return res.status(401).json("not admin")
+        }
+      }
+    })
+  }
+}
 
 app.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
   bcrypt.hash(password, 10)
     .then(hash => {
       AdminModel.create({ name, email, password: hash })
-        .then(users => res.json(users))
+        .then(users => res.json("success"))
         .catch(err => res.json(err))
     })
     .catch(err => res.json(err))
@@ -48,15 +58,15 @@ app.post("/login", (req, res) => {
         if (user) {
           bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-              const token = jwt.sign({ email: user.email }, "secret-key22", { expiresIn: "1d" })
+              const token = jwt.sign({ email: user.email, role: user.role }, "jwt-secret-key", { expiresIn: "1d" })
               res.cookie("token", token)
-              res.json({message:"success"})
+              res.json( {Status : "success" ,role :user.role})
             }else {
-              res.status(401).json({message :"incorrect password"})
+              res.status(401).json("incorrect password")
             }
           })
         } else {
-          res.json({message:"no user found"})
+          res.json("no user found")
         }
       })
       .catch(err => res.json(err))
@@ -64,26 +74,28 @@ app.post("/login", (req, res) => {
     res.json(err)
   }
 })
-app.post("/newuser",(req,res)=>{
-    userModel.create(req.body)
-    .then(Collections => res.json(Collections))
-    .catch(err => res.json(err))
+app.post("/newuser", async (req, res) => {
+  userModel.create(req.body)
+  .then(students =>res.json(students))
+  .catch(err => res.json(err))
 })
+
+
 app.get("/dashboard",verifyUser,(req,res)=>{
     userModel.find({})
-    .then(Collections => res.json(Collections))
+    .then(students => res.json(students))
     .catch(err => res.json(err))
 })
 app.get("/getuser/:id",(req,res)=>{
     const id =req.params.id
     userModel.findById({_id:id})
-    .then(Collections => res.json(Collections))
+    .then(students => res.json(students))
     .catch(err => res.json(err))
 })
 app.put("/edited/:id",(req,res)=>{
     const id =req.params.id
-    userModel.findByIdAndUpdate({_id: id},{name:req.body.name,email:req.body.email,branch:req.body.branch})
-    .then(Collections => res.json(Collections))
+    userModel.findByIdAndUpdate({_id: id},{name:req.body.name,branch:req.body.branch,rollno :req.body.rollno})
+    .then(students => res.json(students))
     .catch(err => res.json(err))
 })
 app.delete("/delete/:id",(req,res)=>{
@@ -100,7 +112,7 @@ app.post("/subjects/:id/:semester", async (req, res) => {
     console.log("Params:", { id, semester });
     console.log("Body:", { subject, marks, Grade, category });
   
-    // Validate semester
+
     const validSemesters = ["sem1", "sem2", "sem3", "sem4", "sem5", "sem6", "sem7", "sem8"];
     if (!validSemesters.includes(semester)) {
       return res.status(400).json({ message: "Invalid semester" });

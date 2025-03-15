@@ -23,13 +23,13 @@ const semesterSchema = new mongoose.Schema({
     {
       subject: { type: String, required: true },
       Grade: { type: String, required: true },
-    },
+    }, 
   ],
 });
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  rollno: { type: Number, required: true, unique: true }, // Remove `unique: true` if needed
   branch: { type: String, required: true },
   sem1: semesterSchema,
   sem2: semesterSchema,
@@ -41,14 +41,23 @@ const userSchema = new mongoose.Schema({
   sem8: semesterSchema,
 });
 
-const userModel = mongoose.model("collections", userSchema);
+const userModel = mongoose.model("students", userSchema);
 
 const AdminSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: {
+    type: String,
+    default: 'visitor'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const AdminModel = mongoose.model("Users", AdminSchema);
 
 module.exports = { userModel, AdminModel };
+

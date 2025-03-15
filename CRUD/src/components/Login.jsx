@@ -8,25 +8,30 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setError("Please fill in all fields.");
+  axios.defaults.withCredentials =true
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if ( !email || !password) {
+      setError("Please fill in all fields !!");
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
       return;
     }
-
-    try {
-      const result = await axios.post("http://localhost:3000/login", { email, password });
-      console.log(result.data)
-      if (result.data.message === "success") {
-        navigate("/dashboard");
-      } 
-    } catch (err) {
-      console.error("Login failed:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Login failed. Please try again.");
-    }
-  };
+    axios.post("http://localhost:3000/login",{email,password})
+    .then(result =>{
+      console.log(result)
+      if(result.data.Status === "success"){
+        if(result.data.role === "admin"){
+          navigate("/dashboard")
+        }
+        else{
+          console.log("sry you are not sigma")
+        }
+      }
+    })
+    .catch(err =>console.log(err))
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

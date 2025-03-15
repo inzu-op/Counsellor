@@ -23,10 +23,11 @@ const User = () => {
   }, []);
   
   const filteredData = data.filter((row) => {
+    const searchTerm = search.toLowerCase();
     return (
-      (row.name?.toLowerCase().includes(search.toLowerCase()) || row.name === undefined) ||
-      (row.email?.toLowerCase().includes(search.toLowerCase()) || row.email === undefined) ||
-      (row.branch?.toLowerCase().includes(search.toLowerCase()) || row.branch === undefined)
+      (row.name && row.name.toLowerCase().includes(searchTerm)) ||
+      (row.rollno && row.rollno.toString().includes(searchTerm)) ||
+      (row.branch && row.branch.toLowerCase().includes(searchTerm))
     );
   });
 
@@ -103,8 +104,8 @@ const User = () => {
       <table className="min-w-full bg-white/10 backdrop-blur-lg shadow-lg border border-white/30 mt-10 rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-white/20 text-white">
+            <th className="py-3 px-6 border-b border-white/30 text-center">Rollno</th>
             <th className="py-3 px-6 border-b border-white/30 text-center">Name</th>
-            <th className="py-3 px-6 border-b border-white/30 text-center">Email</th>
             <th className="py-3 px-6 border-b border-white/30 text-center">Branch</th>
             <th className="py-3 px-6 border-b border-white/30 text-center">Action</th>
           </tr>
@@ -113,8 +114,8 @@ const User = () => {
           {filteredData.length > 0 ? (
             filteredData.map((row) => (
               <tr key={row._id} className="hover:bg-white/20 transition">
+                <td className="py-3 px-6 border-b border-white/30 text-center">{row.rollno}</td>
                 <td className="py-3 px-6 border-b border-white/30 text-center">{row.name}</td>
-                <td className="py-3 px-6 border-b border-white/30 text-center">{row.email}</td>
                 <td className="py-3 px-6 border-b border-white/30 text-center">{row.branch}</td>
                 <td className="py-4 px-6 border-b border-white/30 flex justify-center space-x-3">
                   <Link
