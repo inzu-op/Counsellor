@@ -35,14 +35,14 @@ const Login = () => {
           }
         } else {
           setMessage({
-            text: "Invalid credentials. Please try again.",
+            text: "No user Found",
             type: "error",
           });
         }
         setTimeout(() => setMessage({ text: "", type: "" }), 2000);
       })
       .catch(() => {
-        setMessage({ text: "Login failed. Please check your credentials.", type: "error" });
+        setMessage({ text: "Login failed. Please check your Data.", type: "error" });
         setTimeout(() => setMessage({ text: "", type: "" }), 2000);
       });
   };

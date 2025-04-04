@@ -9,7 +9,7 @@ const app = express()
 app.use(cors({
   origin : "http://localhost:5173",
   credentials : true,
-  method :["GET","POST"]
+  method :["GET","POST","PUT","DELETE"]
 }))
 app.use(express.json()); // Allows JSON data parsing
 app.use(express.urlencoded({ extended: true })); // Allows form data parsing
@@ -106,11 +106,11 @@ app.delete("/delete/:id",(req,res)=>{
 })
 app.post("/subjects/:id/:semester", async (req, res) => {
     const { id, semester } = req.params;
-    const { subject, marks, Grade, category } = req.body;
+    const { subject, marks, grade, category } = req.body;
   
     console.log("Received request to /subjects/:id/:semester");
     console.log("Params:", { id, semester });
-    console.log("Body:", { subject, marks, Grade, category });
+    console.log("Body:", { subject, marks, grade, category });
   
 
     const validSemesters = ["sem1", "sem2", "sem3", "sem4", "sem5", "sem6", "sem7", "sem8"];
@@ -125,7 +125,7 @@ app.post("/subjects/:id/:semester", async (req, res) => {
       return res.status(400).json({ message: "Marks is required" });
     }
   
-    if (category === "sem" && !Grade) {
+    if (category === "sem" && !grade) {
       return res.status(400).json({ message: "Grade is required for 'sem' category" });
     }
   
@@ -155,7 +155,7 @@ app.post("/subjects/:id/:semester", async (req, res) => {
     try {
       const result = await userModel.updateOne(
         { _id: id },
-        { $push: { [updateField]: { subject, marks, Grade } } }
+        { $push: { [updateField]: { subject, marks, grade } } }
       );
       console.log("Update result:", result);
       res.json(result);
@@ -165,29 +165,35 @@ app.post("/subjects/:id/:semester", async (req, res) => {
     }
   });
   
-app.get("/data/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const collection = await userModel.findOne({ _id: id });
-
-    if (!collection) {
-      return res.status(404).json({ message: "Collection not found" });
-    }
-    const validSemesters = ["sem1","sem2","sem3", "sem4", "sem5", "sem6", "sem7", "sem8"];
-    validSemesters.forEach(semester => {
-      if (!collection[semester]) {
-        collection[semester] = { cat1: [], cat2: [], model: [], sem: [] };
+  app.get("/data/:id", async (req, res) => {
+    try {
+      const id = req.params.id;
+  
+      // Validate the ID
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
       }
-    });
-
-    await collection.save();
-
-    res.json([collection]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+  
+      const collection = await userModel.findOne({ _id: id });
+  
+      if (!collection) {
+        return res.status(404).json({ message: "Collection not found" });
+      }
+  
+      const validSemesters = ["sem1", "sem2", "sem3", "sem4", "sem5", "sem6", "sem7", "sem8"];
+      validSemesters.forEach(semester => {
+        if (!collection[semester]) {
+          collection[semester] = { cat1: [], cat2: [], model: [], sem: [] };
+        }
+      });
+  
+      res.json([collection]);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+  });
+  
 app.listen(3000,()=>{
     console.log("server is running")
 })
