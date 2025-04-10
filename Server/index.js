@@ -11,8 +11,8 @@ app.use(cors({
   credentials : true,
   method :["GET","POST","PUT","DELETE"]
 }))
-app.use(express.json()); // Allows JSON data parsing
-app.use(express.urlencoded({ extended: true })); // Allows form data parsing
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
 mongoose.connect("mongodb://127.0.0.1:27017/CRUD")
@@ -79,8 +79,6 @@ app.post("/newuser", async (req, res) => {
   .then(students =>res.json(students))
   .catch(err => res.json(err))
 })
-
-
 app.get("/dashboard",verifyUser,(req,res)=>{
     userModel.find({})
     .then(students => res.json(students))
@@ -155,7 +153,7 @@ app.post("/subjects/:id/:semester", async (req, res) => {
     try {
       const result = await userModel.updateOne(
         { _id: id },
-        { $push: { [updateField]: { subject, marks, grade } } }
+        { $push: { [updateField]: { subject, marks, Grade:grade } } }
       );
       console.log("Update result:", result);
       res.json(result);

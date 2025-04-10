@@ -31,7 +31,7 @@ function SignUp() {
     };
 
     return (
-        <div className="h-screen w-full flex justify-center items-center bg-gradient-to-br from-[#3498db] to-[#2c3e50] font-poppins">
+        <div className="h-screen w-full p-6 flex justify-center items-center bg-gradient-to-br from-[#3498db] to-[#2c3e50] font-poppins">
             <AnimatePresence>
                 {message.text && (
                     <motion.div
@@ -47,47 +47,48 @@ function SignUp() {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div className="w-full max-w-md p-8 text-black rounded-xl shadow-2xl bg-white">
+            <div className="w-full max-w-md p-6 md:p-8 text-black rounded-xl shadow-2xl bg-white">
                 <div className="text-center">
-                    <h1 className="text-3xl font-poppins text-[#2c3e50] font-bold mb-2">Create Your Account</h1>
-                    <p className="text-sm text-[#7f8c8d]">Join us to get started with your journey.</p>
+                    <h1 className="text-xl font-poppins text-[#2c3e50] font-bold mb-2 md:text-3xl">Create Your Account</h1>
+                    <p className="text-[12px] text-[#7f8c8d] md:text-sm">Join us to get started with your journey.</p>
                 </div>
-                <form className="mt-6 space-y-5">
+                <form className="mt-4 md:mt-6 space-y-4 md:space-y-5">
                     <div className="relative">
                         <input
                             id="name"
                             type="text"
-                            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+                            className="peer mt-1 block w-full px-3 py-2 md:px-4 md:py-2 border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm md:text-base"
                             placeholder="Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
-                        <label htmlFor="name" className={`absolute left-5 text-sm transition-all bg-white px-1 ${name ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"}`}>Full Name</label>
+                        <label htmlFor="name" className={`absolute left-3 md:left-4 text-sm transition-all bg-white pointer-events-none ${name ? "top-[-8px] text-[10px] text-[#3498db]" : "top-3 text-[12px] md:text-base text-[#7f8c8d]"}`}>Full Name</label>
                     </div>
                     <div className="relative">
                         <input
                             id="email"
                             type="email"
-                            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+                            className="peer mt-1 block w-full px-3 py-2 md:px-4 md:py-2 border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm
+                            md:text-base"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <label htmlFor="email" className={`absolute left-5 text-sm transition-all bg-white px-1 ${email ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"}`}>Email Address</label>
+                        <label htmlFor="email" className={`absolute left-3 md:left-4 text-sm transition-all bg-white px-1 ${email ? "top-[-8px] text-[10px] text-[#3498db]" : "top-3 text-[12px] md:text-base text-[#7f8c8d]"}`}>Email Address</label>
                     </div>
                     <div className="relative">
                         <input
                             id="password"
                             type="password"
-                            className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+                            className="peer mt-1 block w-full px-3 py-2 md:px-4 md:py-2  border border-gray-300 font-poppins rounded-lg shadow-sm text-black outline-none focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm md:text-base"
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <label htmlFor="password" className={`absolute left-5 text-sm transition-all bg-white px-1 ${password ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"}`}>Password</label>
+                        <label htmlFor="password" className={`absolute left-3 md:left-4 text-sm transition-all bg-white px-1 ${password ? "top-[-8px] text-[10px] text-[#3498db]" : "top-3 text-[12px] md:text-base text-[#7f8c8d]"}`}>Password</label>
                     </div>
                     <button
                         type="submit"
@@ -100,7 +101,7 @@ function SignUp() {
                 <div className="mt-6 text-center">
                     <p className="text-sm text-[#7f8c8d] font-poppins">
                         Already Have an Account?{' '}
-                        <Link to="/Login" className="text-[#3498db] hover:text-[#2980b9] font-semibold underline">Login Here</Link>
+                        <Link to="/Login" className="text-[#3498db] hover:text-[#2980b9] font-semibold underline text-[11px] md:text-sm">Login Here</Link>
                     </p>
                 </div>
             </div>

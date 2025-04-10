@@ -12,7 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!email || !password) {
@@ -50,20 +49,20 @@ const Login = () => {
   if (showLanding) {
     return (
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
         className="h-screen w-full flex flex-col justify-center items-center bg-black text-white font-poppins"
       >
-        <h1 className="text-4xl font-bold">Welcome, Admin!</h1>
-        <p className="text-lg mt-2">Redirecting you to the dashboard...</p>
+        <h1 className="text-2xl md:text-4xl font-bold text-center px-4">Welcome, Admin!</h1>
+        <p className="text-base md:text-lg mt-2">Redirecting you to the dashboard...</p>
       </motion.div>
     );
   }
 
   return (
-    <div className={`bg-gradient-to-br from-[#3498db] to-[#2c3e50] h-screen w-full flex justify-center items-center font-poppins transition-colors duration-1000 ${bgBlack ? "bg-black" : "bg-white"}`}>
+    <div className={`bg-gradient-to-br from-[#3498db] to-[#2c3e50] min-h-screen w-full flex justify-center items-center font-poppins transition-colors duration-1000 ${bgBlack ? "bg-black" : "bg-white"} p-4`}>
       <AnimatePresence>
         {message.text && (
           <motion.div
@@ -71,7 +70,7 @@ const Login = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-md text-white shadow-lg z-50 ${
+            className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-4 py-2 md:px-6 md:py-3 rounded-md text-white shadow-lg z-50 text-sm md:text-base ${
               message.type === "success" ? "bg-green-500" : "bg-red-500"
             }`}
           >
@@ -80,17 +79,17 @@ const Login = () => {
         )}
       </AnimatePresence>
 
-      <div className="w-full max-w-md p-8 text-black rounded-xl shadow-2xl bg-white">
+      <div className="w-full max-w-md p-6 md:p-8 text-black rounded-xl shadow-2xl bg-white mx-2">
         <div className="text-center">
-          <h1 className="text-3xl font-poppins text-[#2c3e50] font-bold mb-2">Welcome Back</h1>
-          <p className="text-sm text-[#7f8c8d]">Login to continue your journey.</p>
+          <h1 className="text-2xl md:text-3xl font-poppins text-[#2c3e50] font-bold mb-2">Welcome Back</h1>
+          <p className="text-xs md:text-sm text-[#7f8c8d]">Login to continue your journey.</p>
         </div>
-        <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
+        <form className="mt-4 md:mt-6 space-y-4 md:space-y-5" onSubmit={handleSubmit}>
           <div className="relative">
             <input
               id="email"
               type="email"
-              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              className="peer mt-1 block w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm md:text-base"
               placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -98,8 +97,8 @@ const Login = () => {
             />
             <label
               htmlFor="email"
-              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
-                email ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"
+              className={`absolute left-3 text-xs md:text-sm font-poppins transition-all duration-200 pointer-events-none ${
+                email ? "top-[-10px] text-[10px] md:text-[12px] text-[#3498db]" : "top-2 md:top-3 text-sm md:text-base text-[#7f8c8d]"
               } bg-white px-1`}
             >
               Email Address
@@ -111,7 +110,7 @@ const Login = () => {
             <input
               id="password"
               type="password"
-              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              className="peer mt-1 block w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm md:text-base"
               placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -119,8 +118,8 @@ const Login = () => {
             />
             <label
               htmlFor="password"
-              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
-                password ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base text-[#7f8c8d]"
+              className={`absolute left-3 text-xs md:text-sm font-poppins transition-all duration-200 pointer-events-none ${
+                password ? "top-[-10px] text-[10px] md:text-[12px] text-[#3498db]" : "top-2 md:top-3 text-sm md:text-base text-[#7f8c8d]"
               } bg-white px-1`}
             >
               Password
@@ -130,13 +129,13 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent font-poppins rounded-lg shadow-md text-sm font-medium text-white bg-[#3498db] hover:bg-[#2980b9] focus:outline-none focus:ring-2 focus:ring-[#3498db] focus:ring-opacity-50 transition-all transform hover:scale-105"
+            className="w-full flex justify-center py-2 px-3 md:py-3 md:px-4 border border-transparent font-poppins rounded-lg shadow-md text-sm md:text-base font-medium text-white bg-[#3498db] hover:bg-[#2980b9] focus:outline-none focus:ring-2 focus:ring-[#3498db] focus:ring-opacity-50 transition-all transform hover:scale-105"
           >
             Login
           </button>
         </form>
-        <div className="mt-6 text-center">
-          <p className="text-sm text-[#7f8c8d] font-poppins">
+        <div className="mt-4 md:mt-6 text-center">
+          <p className="text-xs md:text-sm text-[#7f8c8d] font-poppins">
             Don't Have an Account?{' '}
             <Link to="/" className="text-[#3498db] hover:text-[#2980b9] font-semibold underline">Sign Up Here</Link>
           </p>

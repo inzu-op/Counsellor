@@ -49,18 +49,22 @@ const Mark = () => {
 
   return (
     <div className="container mx-auto p-4 min-h-screen bg-gradient-to-r from-purple-300 via-blue-300 to-indigo-300 flex justify-center items-center">
-      <div className="relative bg-white shadow-xl rounded-2xl p-6 w-full max-w-md border border-gray-300">
-        <h1 className="text-3xl font-extrabold text-black text-center mb-6">
+      <div className="relative bg-white shadow-xl rounded-2xl p-4 sm:p-6 w-full max-w-md border border-gray-300 mx-2">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-black text-center mb-4 sm:mb-6">
           Enter Marks
         </h1>
 
-        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-center mb-4 text-sm sm:text-base">
+            {error}
+          </p>
+        )}
 
-        <p className="text-black text-center mb-4">
+        <p className="text-black text-center mb-4 text-sm sm:text-base">
           Please fill in the details below to enter the marks for the subject.
         </p>
 
-        <form className="space-y-4">
+        <form className="space-y-3 sm:space-y-4">
           {/* Subject Input */}
           <div className="relative">
             <input
@@ -68,14 +72,16 @@ const Mark = () => {
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              className="peer mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm sm:text-base"
               placeholder=" "
               required
             />
             <label
               htmlFor="subject"
-              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
-                subject ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              className={`absolute left-3 text-xs sm:text-sm transition-all duration-200 pointer-events-none ${
+                subject
+                  ? "top-[-10px] text-[10px] sm:text-[12px] text-[#3498db]"
+                  : "top-2 sm:top-3 text-sm sm:text-base font-medium"
               } bg-white px-1`}
             >
               Subject
@@ -89,7 +95,7 @@ const Mark = () => {
               type="number"
               value={marks}
               onChange={(e) => setMarks(e.target.value)}
-              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              className="peer mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm sm:text-base"
               placeholder=" "
               min="0"
               max="100"
@@ -97,8 +103,10 @@ const Mark = () => {
             />
             <label
               htmlFor="marks"
-              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
-                marks ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              className={`absolute left-3 text-xs sm:text-sm transition-all duration-200 pointer-events-none ${
+                marks
+                  ? "top-[-10px] text-[10px] sm:text-[12px] text-[#3498db]"
+                  : "top-2 sm:top-3 text-sm sm:text-base font-medium"
               } bg-white px-1`}
             >
               Marks
@@ -112,45 +120,47 @@ const Mark = () => {
               type="text"
               value={grade}
               onChange={(e) => setGrade(e.target.value)}
-              className="peer mt-1 block w-full px-4 py-3 border border-gray-300 font-poppins rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all"
+              className="peer mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg shadow-sm placeholder:text-transparent text-black outline-none focus:outline focus:outline-[#3498db] focus:border-[#3498db] transition-all text-sm sm:text-base"
               placeholder=" "
               required
             />
             <label
               htmlFor="grade"
-              className={`absolute left-5 text-sm font-poppins transition-all duration-200 pointer-events-none ${
-                grade ? "top-[-10px] text-[12px] text-[#3498db]" : "top-4 text-base font-medium"
+              className={`absolute left-3 text-xs sm:text-sm transition-all duration-200 pointer-events-none ${
+                grade
+                  ? "top-[-10px] text-[10px] sm:text-[12px] text-[#3498db]"
+                  : "top-2 sm:top-3 text-sm sm:text-base font-medium"
               } bg-white px-1`}
             >
               Grade
             </label>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
             <button
               type="button"
-              className="bg-red-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-red-600 hover:shadow-red-400/50"
+              className="bg-red-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-red-600 hover:shadow-red-400/50 text-sm sm:text-base"
               onClick={handleSubmit("cat1")}
             >
               CAT1
             </button>
             <button
               type="button"
-              className="bg-yellow-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-yellow-600 hover:shadow-yellow-400/50"
+              className="bg-yellow-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-yellow-600 hover:shadow-yellow-400/50 text-sm sm:text-base"
               onClick={handleSubmit("cat2")}
             >
               CAT2
             </button>
             <button
               type="button"
-              className="bg-green-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-green-600 hover:shadow-green-400/50"
+              className="bg-green-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-green-600 hover:shadow-green-400/50 text-sm sm:text-base"
               onClick={handleSubmit("model")}
             >
               MODEL
             </button>
             <button
               type="button"
-              className="bg-blue-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-blue-600 hover:shadow-blue-400/50"
+              className="bg-blue-500 text-white py-2 rounded-lg shadow-md transition-all hover:bg-blue-600 hover:shadow-blue-400/50 text-sm sm:text-base"
               onClick={handleSubmit("sem")}
             >
               SEM
