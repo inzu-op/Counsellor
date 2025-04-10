@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
-mongoose.connect("mongodb://127.0.0.1:27017/CRUD")
+mongoose.connect("mongodb+srv://inzuff:inzu664422@cluster0.cicya.mongodb.net/CRUD")
 
 const verifyUser = (req,res,next) =>{
   const token = req.cookies.token
@@ -38,6 +38,9 @@ const verifyUser = (req,res,next) =>{
     })
   }
 }
+app.post("/",(req,res)=>{
+  res.send("hello")
+})
 
 app.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
