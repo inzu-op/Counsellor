@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
 const app = express()
 app.use(cors({
-  origin : "http://localhost:5173",
+  origin : "https://counsellor-lovat.vercel.app/",
   credentials : true,
   method :["GET","POST","PUT","DELETE"]
 }))
