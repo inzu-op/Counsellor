@@ -27,8 +27,8 @@ const Login = () => {
           if (result.data.role === "admin") {
             setMessage({ text: "Login successful!", type: "success" });
             setTimeout(() => setBgBlack(true), 500);
-            setTimeout(() => setShowLanding(true), 1000);
-            setTimeout(() => navigate("/dashboard"), 6000);
+            setTimeout(() => setShowLanding(true), 4000);
+             navigate("/dashboard")
           } else {
             setMessage({ text: "Sorry, you are not an admin.", type: "error" });
           }
@@ -52,7 +52,7 @@ const Login = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0,3 }}
         className="h-screen w-full flex flex-col justify-center items-center bg-black text-white font-poppins"
       >
         <h1 className="text-2xl md:text-4xl font-bold text-center px-4">Welcome, Admin!</h1>
