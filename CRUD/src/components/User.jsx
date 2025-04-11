@@ -13,7 +13,7 @@ const User = () => {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get("http://localhost:3000/dashboard")
+    axios.get("https://a-8-rgdf.onrender.com/dashboard")
       .then((res) => {
         setdata(res.data);
       })
