@@ -34,7 +34,7 @@ const New = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/newuser", userData);
+      const res = await axios.post("https://a-8-rgdf.onrender.com/newuser", userData);
       setSuccess("Student added successfully!");
       setName("");
       setRollno("");
