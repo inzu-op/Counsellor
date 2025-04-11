@@ -21,7 +21,7 @@ const Login = () => {
     }
 
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post("https://a-8-rgdf.onrender.com/login", { email, password })
       .then((result) => {
         if (result.data.Status === "success") {
           if (result.data.role === "admin") {
