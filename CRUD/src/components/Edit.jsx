@@ -14,7 +14,7 @@ const Edit = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/getuser/" + id)
+      .get("https://a-8-rgdf.onrender.com/getuser/" + id)
       .then((res) => {
         setName(res.data.name);
         setRollno(res.data.rollno);
@@ -47,7 +47,7 @@ const Edit = () => {
       return;
     }
     axios
-      .put("http://localhost:3000/edited/" + id, { name, rollno, branch })
+      .put("https://a-8-rgdf.onrender.com/edited/" + id, { name, rollno, branch })
       .then(() => {
         setSuccess("User details updated successfully!");
       })
