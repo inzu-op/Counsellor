@@ -34,7 +34,7 @@ const Mark = () => {
     };
 
     axios
-      .post(`http://localhost:3000/subjects/${id}/sem${semester}`, data)
+      .post(`https://a-8-rgdf.onrender.com/subjects/${id}/sem${semester}`, data)
       .then((res) => {
         console.log(res);
         setSubject("");
