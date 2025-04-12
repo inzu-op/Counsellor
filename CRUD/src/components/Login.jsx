@@ -28,10 +28,7 @@ const Login = () => {
             setMessage({ text: "Login successful!", type: "success" });
             setTimeout(() => setBgBlack(true), 500);
             setTimeout(() => setShowLanding(true), 1000);
-
-            // Wait a bit for the cookie to be set
             setTimeout(() => {
-              // Verify the token is set before navigating
               axios.get("https://a-8-rgdf.onrender.com/verify-token", { withCredentials: true })
                 .then(() => {
                   navigate("/dashboard");
@@ -118,7 +115,6 @@ const Login = () => {
             </label>
           </div>
 
-          {/* Password Input */}
           <div className="relative">
             <input
               id="password"
@@ -139,7 +135,6 @@ const Login = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full flex justify-center py-2 px-3 md:py-3 md:px-4 border border-transparent font-poppins rounded-lg shadow-md text-sm md:text-base font-medium text-white bg-[#3498db] hover:bg-[#2980b9] focus:outline-none focus:ring-2 focus:ring-[#3498db] focus:ring-opacity-50 transition-all transform hover:scale-105"
