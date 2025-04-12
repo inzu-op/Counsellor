@@ -19,6 +19,7 @@ const Login = () => {
     setTimeout(() => setMessage({ text: "", type: "" }), 2000);
     return;
   }
+  }
 
   axios
     .post("https://a-8-rgdf.onrender.com/login", { email, password })
