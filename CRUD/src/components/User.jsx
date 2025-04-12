@@ -34,7 +34,7 @@ const User = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete("http://localhost:3000/delete/" + id)
+      .delete("https://a-8-rgdf.onrender.com/delete/" + id)
       .then((result) => {
         console.log(result);
         setdata(data.filter((row) => row._id !== id));
