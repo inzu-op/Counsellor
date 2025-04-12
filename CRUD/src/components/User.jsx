@@ -19,7 +19,7 @@ const User = () => {
       })
       .catch((err) => {
         console.log("Error fetching dashboard:", err.response?.data || err.message);
-        // navigate("/Login");
+        navigate("/Login");
       });
   }, []);
 
@@ -57,27 +57,26 @@ const User = () => {
       <h1 className="text-2xl sm:text-4xl font-extrabold mb-6 bg-clip-text bg-gradient-to-r text-yellow-200">
         Student Table
       </h1>
-     <div className="flex justify-centre items-center">
-      <div className="w-[600px] max-w-2xl px-4 ">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full border p-1 rounded-md md:p-2 bg-white/20 text-white text-[13px] md:text-[16px] placeholder-gray-300 focus:ring-2 focus:ring-yellow-100 transition"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full px-4 py-2">
+        <div className="w-full sm:w-[70%] lg:w-[600px] max-w-2xl">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full border p-2 rounded-md bg-white/20 text-white text-sm md:text-base placeholder-gray-300 focus:ring-2 focus:ring-yellow-100 transition"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="w-full sm:w-auto">
+          <Link
+            to="/new"
+            className="block w-full sm:w-auto text-center rounded-md px-4 py-2 bg-[#E7CFDD] text-black font-medium hover:bg-[#d8b8cc] transition-colors duration-200 text-[15px]"
+          >
+            Add Student
+          </Link>
+        </div>
       </div>
-      <div className="">
-        <Link
-          to="/new"
-          className="rounded px-4 py-2 bg-[#E7CFDD]  text-black font-md"
-        >
-          Add Student
-        </Link>
-      </div>
-     </div>
   
-
       {showConfirm && (
         <motion.div
           className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4 md:p-8"
