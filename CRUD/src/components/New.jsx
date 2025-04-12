@@ -47,7 +47,6 @@ const New = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4 relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#7E22CE] to-[#22D3EE]">
-      {/* Rotating Blurry Gradient Layers */}
       <div className="absolute top-1/2 left-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] -translate-x-1/2 -translate-y-1/2 animate-rotate blur-[50px] opacity-80"></div>
       <div className="absolute top-1/2 left-1/2 w-[180%] h-[180%] bg-[conic-gradient(from_0deg,#ff9aa2,#ffb7b2,#ffdac1,#e2f0cb,#a2e4ff,#c9afff,#ffb7b2,#ff9aa2)] -translate-x-1/2 -translate-y-1/2 animate-rotate-reverse blur-[50px] opacity-60"></div>
 
@@ -76,7 +75,6 @@ const New = () => {
         )}
       </AnimatePresence>
 
-      {/* Form */}
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, scale: 0.95 }}
@@ -87,14 +85,11 @@ const New = () => {
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-4">
           New Student
         </h2>
-
-        {/* Description */}
         <p className="text-xs sm:text-sm text-gray-600 text-center mb-4 sm:mb-6">
           Welcome! Please fill in the details below to register a student. Ensure all fields are
           filled accurately to avoid errors.
         </p>
-
-        {/* Name Field */}
+        
         <div className="relative">
           <input
             id="name"
@@ -114,8 +109,7 @@ const New = () => {
             Full Name
           </label>
         </div>
-
-        {/* Roll Number Field */}
+        
         <div className="relative">
           <input
             id="rollno"
@@ -136,7 +130,6 @@ const New = () => {
           </label>
         </div>
 
-        {/* Branch Field */}
         <div className="relative">
           <input
             id="branch"
