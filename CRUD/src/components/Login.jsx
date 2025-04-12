@@ -13,52 +13,12 @@ const Login = () => {
 
   axios.defaults.withCredentials = true;
   const handleSubmit = (event) => {
-  event.preventDefault();
-  if (!email || !password) {
-    setMessage({ text: "Please fill in all fields!", type: "error" });
-    setTimeout(() => setMessage({ text: "", type: "" }), 2000);
-    return;
-  }
-  }
-
-  axios
-    .post("https://a-8-rgdf.onrender.com/login", { email, password })
-    .then((result) => {
-      if (result.data.Status === "success") {
-        if (result.data.role === "admin") {
-          setMessage({ text: "Login successful!", type: "success" });
-          setTimeout(() => setBgBlack(true), 500);
-          setTimeout(() => setShowLanding(true), 1000);
-          
-          // Wait a bit for the cookie to be set
-          setTimeout(() => {
-            // Verify the token is set before navigating
-            axios.get("https://a-8-rgdf.onrender.com/verify-token", { withCredentials: true })
-              .then(() => {
-                navigate("/dashboard");
-              })
-              .catch((err) => {
-                console.error("Token verification failed:", err);
-                setMessage({ text: "Authentication error. Please try again.", type: "error" });
-              });
-          }, 1500);
-        } else {
-          setMessage({ text: "Sorry, you are not an admin.", type: "error" });
-        }
-      } else {
-        setMessage({
-          text: "Login failed. User not found.",
-          type: "error",
-        });
-      }
+    event.preventDefault();
+    if (!email || !password) {
+      setMessage({ text: "Please fill in all fields!", type: "error" });
       setTimeout(() => setMessage({ text: "", type: "" }), 2000);
-    })
-    .catch((err) => {
-      console.error("Login error:", err);
-      setMessage({ text: "Login failed. Please check your data.", type: "error" });
-      setTimeout(() => setMessage({ text: "", type: "" }), 2000);
-    });
-};
+      return;
+    }
 
     axios
       .post("https://a-8-rgdf.onrender.com/login", { email, password })
@@ -67,21 +27,34 @@ const Login = () => {
           if (result.data.role === "admin") {
             setMessage({ text: "Login successful!", type: "success" });
             setTimeout(() => setBgBlack(true), 500);
-            setTimeout(() => setShowLanding(true), 4000);
-             navigate("/dashboard")
+            setTimeout(() => setShowLanding(true), 1000);
+
+            // Wait a bit for the cookie to be set
+            setTimeout(() => {
+              // Verify the token is set before navigating
+              axios.get("https://a-8-rgdf.onrender.com/verify-token", { withCredentials: true })
+                .then(() => {
+                  navigate("/dashboard");
+                })
+                .catch((err) => {
+                  console.error("Token verification failed:", err);
+                  setMessage({ text: "Authentication error. Please try again.", type: "error" });
+                });
+            }, 1500);
           } else {
             setMessage({ text: "Sorry, you are not an admin.", type: "error" });
           }
         } else {
           setMessage({
-            text: "No user Found",
+            text: "Login failed. User not found.",
             type: "error",
           });
         }
         setTimeout(() => setMessage({ text: "", type: "" }), 2000);
       })
-      .catch(() => {
-        setMessage({ text: "Login failed. Please check your Data.", type: "error" });
+      .catch((err) => {
+        console.error("Login error:", err);
+        setMessage({ text: "Login failed. Please check your data.", type: "error" });
         setTimeout(() => setMessage({ text: "", type: "" }), 2000);
       });
   };
