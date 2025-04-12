@@ -91,7 +91,7 @@ const Login = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0,3 }}
+        transition={{ duration: 0.3 }}
         className="h-screen w-full flex flex-col justify-center items-center bg-black text-white font-poppins"
       >
         <h1 className="text-2xl md:text-4xl font-bold text-center px-4">Welcome, Admin!</h1>
