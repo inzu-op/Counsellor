@@ -54,7 +54,7 @@ const User = () => {
     setShowConfirm(false);
   };
   const handleLogout =()=>{
-    axios.get("http://localhost:3000/logout")
+    axios.get("https://a-8-rgdf.onrender.com/logout")
     .then(res=> {
       if(res.data.Status === "Success"){
         navigate("/Login", { replace: true });
