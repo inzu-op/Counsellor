@@ -87,7 +87,6 @@ function Sem() {
         </Link>
       </div>
 
-      {/* Cat1 Table */}
       <div className="bg-red-100 rounded-lg shadow-lg p-6 mb-6">
         <h2 className="text-2xl font-bold mb-4 text-red-700">Cat 1</h2>
         {semesterData.cat1.length > 0 ? (
@@ -121,7 +120,6 @@ function Sem() {
         )}
       </div>
 
-      {/* Cat2 Table */}
       <div className="bg-yellow-100 rounded-lg shadow-lg p-6 mb-6">
         <h2 className="text-2xl font-bold mb-4 text-yellow-700">Cat 2</h2>
         {semesterData.cat2.length > 0 ? (
@@ -155,7 +153,6 @@ function Sem() {
         )}
       </div>
 
-      {/* Model Table */}
       <div className="bg-green-100 rounded-lg shadow-lg p-6 mb-6">
         <h2 className="text-2xl font-bold mb-4 text-green-700">Model</h2>
         {semesterData.model.length > 0 ? (
@@ -189,7 +186,6 @@ function Sem() {
         )}
       </div>
 
-      {/* Semester Table */}
       <div className="bg-blue-100 rounded-lg shadow-lg p-6 mb-6">
         <h2 className="text-2xl font-bold mb-4 text-blue-700">Semester</h2>
         {semesterData.sem.length > 0 ? (
