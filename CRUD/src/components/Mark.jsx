@@ -65,7 +65,6 @@ const Mark = () => {
         </p>
 
         <form className="space-y-3 sm:space-y-4">
-          {/* Subject Input */}
           <div className="relative">
             <input
               id="subject"
@@ -88,7 +87,6 @@ const Mark = () => {
             </label>
           </div>
 
-          {/* Marks Input */}
           <div className="relative">
             <input
               id="marks"
@@ -112,8 +110,7 @@ const Mark = () => {
               Marks
             </label>
           </div>
-
-          {/* Grade Input */}
+          
           <div className="relative">
             <input
               id="grade"
