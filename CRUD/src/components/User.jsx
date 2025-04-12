@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 
 const User = () => {
   const navigate = useNavigate();
@@ -51,9 +53,30 @@ const User = () => {
   const closeConfirmModal = () => {
     setShowConfirm(false);
   };
-
+  const handleLogout =()=>{
+    axios.get("http://localhost:3000/logout")
+    .then(res=> {
+      if(res.data.Status === "Success"){
+        navigate("/Login", { replace: true });
+        location.reload(true)
+      }
+      else{
+        alert("Error")
+      }
+    })
+    .catch(err => console.log(err))
+  }
   return (
     <div className="p-4 min-h-screen flex flex-col items-center bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+       <h1 className="relative left-[700px] bg-red-500 text-white rounded-3xl py-2 px-4 text-[13px] flex items-center justify-center group overflow-hidden transition-all duration-300 ease-in-out w-[42px] hover:w-[100px] hover:rounded-xl hover:bg-red-600" onClick={handleLogout}>
+        <FontAwesomeIcon
+          icon={faPowerOff}
+          className="transition-all ml-12 duration-300 ease-in-out mx-auto group-hover:mx-0 group-hover:mr-2"
+        />
+        <span className="inline-block opacity-0 translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 ease-in-out whitespace-nowrap font-bold mb-1">
+          Log-out
+        </span>
+      </h1>
       <h1 className="text-2xl sm:text-4xl font-extrabold mb-6 bg-clip-text bg-gradient-to-r text-yellow-200">
         Student Table
       </h1>
