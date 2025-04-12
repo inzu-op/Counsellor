@@ -68,12 +68,15 @@ const User = () => {
   }
   return (
     <div className="p-4 min-h-screen flex flex-col items-center bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
-       <h1 className="relative left-[700px] bg-red-500 text-white rounded-3xl py-2 px-4 text-[13px] flex items-center justify-center group overflow-hidden transition-all duration-300 ease-in-out w-[42px] hover:w-[100px] hover:rounded-xl hover:bg-red-600" onClick={handleLogout}>
+       <h1
+        className="fixed top-4 right-10  bg-red-500 text-white rounded-3xl p-2 flex items-center justify-center group overflow-hidden transition-all duration-300 ease-in-out w-10 h-10 hover:w-32 hover:rounded-lg hover:bg-red-600"
+        onClick={handleLogout}
+      >
         <FontAwesomeIcon
           icon={faPowerOff}
-          className="transition-all ml-12 duration-300 ease-in-out mx-auto group-hover:mx-0 group-hover:mr-2"
+          className="transition-all duration-300 ease-in-out absolute group-hover:relative group-hover:mr-2"
         />
-        <span className="inline-block opacity-0 translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 ease-in-out whitespace-nowrap font-bold mb-1">
+        <span className="inline-block opacity-0 w-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-300 mb-1 ease-in-out whitespace-nowrap font-bold text-xs sm:text-sm">
           Log-out
         </span>
       </h1>
