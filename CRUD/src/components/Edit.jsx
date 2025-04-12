@@ -58,7 +58,7 @@ const Edit = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4 relative bg-[#DCE1E6]">
-      {/* Background Blur Effect */}
+      
       <div className="absolute inset-0 bg-[#1F2937]/50 backdrop-blur-md"></div>
 
       <AnimatePresence>
@@ -121,7 +121,6 @@ const Edit = () => {
           </label>
         </div>
 
-        {/* Roll Number Field */}
         <div className="relative">
           <input
             id="rollno"
@@ -142,7 +141,6 @@ const Edit = () => {
           </label>
         </div>
 
-        {/* Branch Field */}
         <div className="relative">
           <input
             id="branch"
