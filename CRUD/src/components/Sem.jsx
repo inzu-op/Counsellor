@@ -20,7 +20,7 @@ function Sem() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/data/${id}`);
+        const response = await axios.get(`https://a-8-rgdf.onrender.com/data/${id}`);
         const firstObject = response.data?.[0];
 
         if (firstObject) {
