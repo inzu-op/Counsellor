@@ -80,7 +80,7 @@ const User = () => {
       <h1 className="text-2xl sm:text-4xl font-extrabold mb-6 bg-clip-text bg-gradient-to-r text-yellow-200">
         Student Table
       </h1>
-     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full px-4 py-2">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full px-4 py-2 md:justify-around md:w-[800px]">
         <div className="w-full sm:w-[70%] lg:w-[600px] max-w-2xl">
           <input
             type="text"
