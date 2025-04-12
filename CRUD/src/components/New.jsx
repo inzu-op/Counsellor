@@ -25,6 +25,7 @@ const New = () => {
     }
   }, [success]);
 
+  axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
